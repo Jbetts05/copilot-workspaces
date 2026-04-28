@@ -1,5 +1,10 @@
 # 🗂️ copilot-workspaces
 
+[![npm version](https://img.shields.io/npm/v/copilot-workspaces.svg)](https://www.npmjs.com/package/copilot-workspaces)
+[![npm downloads](https://img.shields.io/npm/dm/copilot-workspaces.svg)](https://www.npmjs.com/package/copilot-workspaces)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%E2%89%A522-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+
 > Group your **Copilot CLI sessions** into named workspaces — one per customer, project, or initiative — and resume any of them with a sentence.
 
 `copilot-workspaces` is an [MCP](https://modelcontextprotocol.io) server that adds a small, focused set of natural-language tools to the [GitHub Copilot CLI](https://github.com/github/copilot-cli). It uses Copilot's own session store as a read-only source of truth and adds a tiny private SQLite database alongside it for your workspace mappings.
