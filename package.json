@@ -1,23 +1,36 @@
 {
-  "name": "copilot-workspaces-mcp",
-  "version": "1.0.0",
+  "name": "copilot-workspaces",
+  "version": "0.1.0",
+  "description": "Group Copilot CLI sessions into named workspaces (e.g. per customer) and resume them via natural language. An MCP server plugin.",
+  "license": "MIT",
+  "author": "Josh Betts",
+  "type": "module",
+  "main": "server.mjs",
+  "bin": {
+    "copilot-workspaces": "./server.mjs"
+  },
+  "files": [
+    "server.mjs",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "node server.mjs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0"
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.8"
   },
-  "description": "Group Copilot CLI sessions into named workspaces (e.g. per customer) and resume them via natural language. An MCP server plugin.",
-  "license": "MIT",
-  "author": "Josh Betts",
-  "main": "server.mjs",
-  "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Jbetts05/copilot-workspaces.git"
+  },
+  "homepage": "https://github.com/Jbetts05/copilot-workspaces#readme",
+  "bugs": {
+    "url": "https://github.com/Jbetts05/copilot-workspaces/issues"
   },
   "keywords": [
     "copilot",

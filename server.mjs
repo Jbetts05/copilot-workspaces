@@ -1,4 +1,5 @@
-// copilot-workspaces-mcp
+#!/usr/bin/env node
+// copilot-workspaces
 // MCP server that lets you group Copilot CLI sessions into named workspaces
 // (typically one per customer/project) so you can browse and resume them later
 // via natural-language chat in any Copilot CLI session.

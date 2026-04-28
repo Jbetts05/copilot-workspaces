@@ -85,42 +85,47 @@ All tools are invoked **for** you by the agent based on natural language. You do
 | **Node.js**      | ≥ 22.0.0    | Built-in `node:sqlite`, no native deps to compile |
 | **Copilot CLI**  | ≥ 1.0.36    | MCP plugin support                   |
 
-### Steps
+### One step
 
-```powershell
-# 1. Clone
-git clone https://github.com/Jbetts05/copilot-workspaces.git $env:USERPROFILE\copilot-workspaces
-
-# 2. Install the one dependency (the MCP SDK)
-cd $env:USERPROFILE\copilot-workspaces
-npm install
-
-# 3. Wire it into your user-level Copilot MCP config
-# ~/.copilot/mcp-config.json
-```
-
-`~/.copilot/mcp-config.json`:
+Add this block to `~/.copilot/mcp-config.json` (create the file if it doesn't exist):
 
 ```json
 {
   "mcpServers": {
     "copilot-workspaces": {
-      "command": "node",
-      "args": ["C:\\Users\\YOU\\copilot-workspaces\\server.mjs"],
-      "tools": ["*"]
+      "command": "npx",
+      "args": ["-y", "copilot-workspaces"]
     }
   }
 }
 ```
 
-```powershell
-# 4. Restart Copilot CLI (or run /mcp reload inside a session)
-copilot mcp list   # should show "copilot-workspaces (local)"
+Then, from inside any Copilot CLI session:
+
+```text
+/mcp reload
 ```
 
-You're done. Open any Copilot CLI session and try *"what workspaces do I have?"*.
+That's it. No clone, no `cd`, no absolute paths. `npx` will fetch the package on first use and cache it.
 
-> **macOS / Linux users:** swap `$env:USERPROFILE` for `$HOME` and use forward-slash paths in the config.
+> **Want to pin a version?** Use `["-y", "copilot-workspaces@0.1.0"]`. To upgrade later, change the version (or drop the pin) and `/mcp reload`.
+
+---
+
+## 🔒 What this plugin can see and do
+
+`copilot-workspaces` runs locally as an MCP server on your machine. It is intentionally narrow:
+
+- **Reads** `~/.copilot/session-store.db` (read-only) — your existing Copilot CLI session metadata: session IDs, auto-generated summaries, checkpoint titles, last-active timestamps, and the working directory each session was run in.
+- **Writes** `~/.copilot/workspaces.db` — a small SQLite database it owns, containing only workspace names you chose and the session IDs you assigned to them.
+- **Never** makes network requests. No telemetry, no update checks, nothing leaves your machine.
+- **Never** executes shell commands. The `resume` tool returns a `/resume <id>` command as text for *you* to run.
+- **Never** touches files outside `~/.copilot/`.
+- **Cannot** corrupt your Copilot history — the session store is opened read-only.
+
+When you call a workspace tool, the **tool's response** (workspace names, session summaries, checkpoint titles, `cwd` paths, timestamps) is returned to the Copilot CLI agent — same trust boundary as anything else Copilot already sees about your sessions. No new data leaves your machine; the plugin just makes existing local data browsable.
+
+Source: [`server.mjs`](./server.mjs) (~500 lines, one file). Audit it yourself before installing.
 
 ---
 
@@ -148,9 +153,9 @@ You ▸ delete the Smoke Test workspace
 
 **The plugin is portable. Your data is not.**
 
-- The MCP server itself is just one `server.mjs` and a single npm dep — clone it, install it, done.
-- The workspaces DB lives at `~/.copilot/workspaces.db` on each machine. Installing this plugin on a teammate's laptop gives them the *capability*, not your customer list.
-- Copilot's session-store is read-only from this plugin's perspective. Nothing about your existing sessions changes.
+- Anyone can install the plugin with the `npx` snippet above. They get the *capability* — empty workspaces.
+- Your `~/.copilot/workspaces.db` lives only on your machine. It's not synced, not uploaded, not shared.
+- Copilot's session-store is opened read-only by this plugin. Nothing about your existing sessions changes.
 
 ---
 
@@ -163,7 +168,7 @@ There's nothing to configure. The defaults are:
 | `~/.copilot/workspaces.db`     | Your private workspaces (writeable)      |
 | `~/.copilot/session-store.db`  | Copilot's session history (read-only)    |
 
-Both are auto-discovered relative to your home directory. If you've moved your Copilot config, set `COPILOT_DIR` in your shell — but you almost certainly don't need to.
+Both are auto-discovered relative to your home directory.
 
 ---
 
