@@ -6,6 +6,10 @@
 
 You speak. The agent picks the right tool. The result is a markdown table.
 
+<p align="center">
+  <img src="assets/demo.svg" alt="copilot-workspaces in action" width="820"/>
+</p>
+
 ---
 
 ## 🎬 In action
