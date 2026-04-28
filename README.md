@@ -6,47 +6,13 @@
 
 You speak. The agent picks the right tool. The result is a markdown table.
 
-<p align="center">
-  <img src="assets/demo.svg" alt="copilot-workspaces in action" width="820"/>
-</p>
-
 ---
 
 ## 🎬 In action
 
-```text
-You ▸ create a workspace for Contoso
-🤖 ▸ ✅ Created workspace Contoso.
-
-You ▸ add this session to Contoso
-🤖 ▸ ✅ Assigned session 9fe4a01 to Contoso.
-
-You ▸ what workspaces do I have?
-🤖 ▸
-     | Workspace | Sessions | Last activity            |
-     |-----------|----------|--------------------------|
-     | Contoso   | 7        | 2026-04-28T09:14:02.013Z |
-     | Northwind | 3        | 2026-04-26T17:22:10.481Z |
-     | Internal  | 12       | 2026-04-25T11:08:55.700Z |
-
-You ▸ show me Contoso
-🤖 ▸
-     **Contoso** — 7 sessions
-
-     | Short ID  | Name                              | Last active              | Latest checkpoint           | cwd                  |
-     |-----------|-----------------------------------|--------------------------|-----------------------------|----------------------|
-     | `9fe4a01` | JWT refresh race condition        | 2026-04-28T09:14:02Z     | Fixed JWT refresh race      | ~\work\contoso\api   |
-     | `ab12cd3` | Migration plan review             | 2026-04-27T18:33:21Z     | Reviewed migration plan     | ~\work\contoso\db    |
-     | `7c2b8de` | Onboarding doc draft              | 2026-04-25T10:11:09Z     | Drafted README sections     | ~\work\contoso       |
-     ...
-
-     To resume one, say *resume <short-id> from Contoso*.
-
-You ▸ resume that JWT one
-🤖 ▸ To resume session 9fe4a01 from Contoso, run:
-
-         /resume 9fe4a019-3711-4eb0-93b6-fed99d8a4c11
-```
+<p align="center">
+  <img src="assets/demo.svg" alt="copilot-workspaces in action — animated terminal demo" width="820"/>
+</p>
 
 You never type a tool name. You never remember a session ID. You describe what you want, and the agent picks the right tool.
 
